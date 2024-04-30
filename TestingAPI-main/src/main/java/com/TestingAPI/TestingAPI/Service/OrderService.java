@@ -1,5 +1,6 @@
 package com.TestingAPI.TestingAPI.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,20 @@ public class OrderService {
 	@Transactional
 	public Orders getOrderById(UUID id) {
 		return orderrepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+	}
+	
+	@Transactional
+	public List<Orders> getAllOrder() {
+		return orderrepository.findAll();
+	}
+
+	public boolean deleteOrder(UUID id) {
+		if (orderrepository.existsById(id)) {
+			orderrepository.deleteById(id);
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	
