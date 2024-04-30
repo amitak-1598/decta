@@ -53,14 +53,17 @@ public class Orders {
 	@JsonManagedReference
     private PrintLinks printLinks;	
 	
+	@OneToOne(mappedBy = "order",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference	
+	private Issuer issuer;
+	
 	
 //  private Brand brand;
 //  private Website website;
 	
 	
 //	private created created_by;
-//  private Author author;	
-//	private Issuer issuer;	
+//  private Author author;		
 //  private StatusChange[] statusChanges;
 //  private TransactionDetails transactionDetails;
 	
@@ -683,6 +686,42 @@ public class Orders {
 	}
 	public void setMerchant(String merchant) {
 		this.merchant = merchant;
+	}
+	public ServiceLocation getServiceLocation() {
+		return serviceLocation;
+	}
+	public void setServiceLocation(ServiceLocation serviceLocation) {
+		this.serviceLocation = serviceLocation;
+	}
+	public AccountOrder getAccount() {
+		return account;
+	}
+	public void setAccount(AccountOrder account) {
+		this.account = account;
+	}
+	public Country getPaidFromIpCountry() {
+		return paidFromIpCountry;
+	}
+	public void setPaidFromIpCountry(Country paidFromIpCountry) {
+		this.paidFromIpCountry = paidFromIpCountry;
+	}
+	public DownloadLinks getDownloadLinks() {
+		return downloadLinks;
+	}
+	public void setDownloadLinks(DownloadLinks downloadLinks) {
+		this.downloadLinks = downloadLinks;
+	}
+	public PrintLinks getPrintLinks() {
+		return printLinks;
+	}
+	public void setPrintLinks(PrintLinks printLinks) {
+		this.printLinks = printLinks;
+	}
+	public Issuer getIssuer() {
+		return issuer;
+	}
+	public void setIssuer(Issuer issuer) {
+		this.issuer = issuer;
 	}
 	
 	

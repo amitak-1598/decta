@@ -2,6 +2,8 @@ package com.TestingAPI.TestingAPI.Entities;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -21,14 +23,26 @@ public class Issuer {
 
 	    private String email;
 	    private String phone;
-	    private String brandName;
-	    private String legalName;
-	    private String registrationNr;
-	    private String vatPayerNr;
-	    private String legalAddress;
+	    private String brand_name;
+	    private String legal_name;
+	    private String registration_nr;
+	    private String vat_payer_nr;
+	    private String legal_address;
 	    private String address;
-	    private String bankAccount;
-	    private String bankCode;
+	    private String bank_account;
+	    private String bank_code;
+	    
+	    public Orders getOrder() {
+			return order;
+		}
+		public void setOrder(Orders order) {
+			this.order = order;
+		}
+		
+		@OneToOne
+        @JsonBackReference
+	    private Orders order;
+		
 		public UUID getId() {
 			return id;
 		}
@@ -53,35 +67,35 @@ public class Issuer {
 		public void setPhone(String phone) {
 			this.phone = phone;
 		}
-		public String getBrandName() {
-			return brandName;
+		public String getBrand_name() {
+			return brand_name;
 		}
-		public void setBrandName(String brandName) {
-			this.brandName = brandName;
+		public void setBrand_name(String brand_name) {
+			this.brand_name = brand_name;
 		}
-		public String getLegalName() {
-			return legalName;
+		public String getLegal_name() {
+			return legal_name;
 		}
-		public void setLegalName(String legalName) {
-			this.legalName = legalName;
+		public void setLegal_name(String legal_name) {
+			this.legal_name = legal_name;
 		}
-		public String getRegistrationNr() {
-			return registrationNr;
+		public String getRegistration_nr() {
+			return registration_nr;
 		}
-		public void setRegistrationNr(String registrationNr) {
-			this.registrationNr = registrationNr;
+		public void setRegistration_nr(String registration_nr) {
+			this.registration_nr = registration_nr;
 		}
-		public String getVatPayerNr() {
-			return vatPayerNr;
+		public String getVat_payer_nr() {
+			return vat_payer_nr;
 		}
-		public void setVatPayerNr(String vatPayerNr) {
-			this.vatPayerNr = vatPayerNr;
+		public void setVat_payer_nr(String vat_payer_nr) {
+			this.vat_payer_nr = vat_payer_nr;
 		}
-		public String getLegalAddress() {
-			return legalAddress;
+		public String getLegal_address() {
+			return legal_address;
 		}
-		public void setLegalAddress(String legalAddress) {
-			this.legalAddress = legalAddress;
+		public void setLegal_address(String legal_address) {
+			this.legal_address = legal_address;
 		}
 		public String getAddress() {
 			return address;
@@ -89,18 +103,20 @@ public class Issuer {
 		public void setAddress(String address) {
 			this.address = address;
 		}
-		public String getBankAccount() {
-			return bankAccount;
+		public String getBank_account() {
+			return bank_account;
 		}
-		public void setBankAccount(String bankAccount) {
-			this.bankAccount = bankAccount;
+		public void setBank_account(String bank_account) {
+			this.bank_account = bank_account;
 		}
-		public String getBankCode() {
-			return bankCode;
+		public String getBank_code() {
+			return bank_code;
 		}
-		public void setBankCode(String bankCode) {
-			this.bankCode = bankCode;
+		public void setBank_code(String bank_code) {
+			this.bank_code = bank_code;
 		}
+		
+		
 	    
 	    
 	    
