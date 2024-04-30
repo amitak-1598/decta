@@ -27,33 +27,47 @@ public class Orders {
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private List<Orderproduct> products;
-	
-	
-//  private Author author;
-	
-	
+		
 	@OneToOne(mappedBy = "order",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
     private Orderclient client;
 	
 	
-//  private ServiceLocation serviceLocation;
+	@OneToOne(mappedBy = "order",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
+    private ServiceLocation serviceLocation;
+	
+	@OneToOne(mappedBy = "order",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
+    private AccountOrder account;	 
+	
+	@OneToOne(mappedBy = "order",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
+    private Country paidFromIpCountry;
+		
+	@OneToOne(mappedBy = "order",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
+    private DownloadLinks downloadLinks;
+	
+	@OneToOne(mappedBy = "order",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
+    private PrintLinks printLinks;	
+	
+	
 //  private Brand brand;
 //  private Website website;
-//  private AccountOrder account;	
-//  private DownloadLinks downloadLinks;
-//  private PrintLinks printLinks;	
+	
+	
 //	private created created_by;
+//  private Author author;	
 //	private Issuer issuer;	
 //  private StatusChange[] statusChanges;
 //  private TransactionDetails transactionDetails;
-//  private Country paidFromIpCountry;
+	
+	
 //  private TravelData travelData;
 	
-	
-	
-	
-//	private String type;
+	private String type;
 	
 	
 	
@@ -154,12 +168,12 @@ public class Orders {
 	public void setId(UUID id) {
 		this.id = id;
 	}
-//	public String getType() {
-//		return type;
-//	}
-//	public void setType(String type) {
-//		this.type = type;
-//	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 
 	
