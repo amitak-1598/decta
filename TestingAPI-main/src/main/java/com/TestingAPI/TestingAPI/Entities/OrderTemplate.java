@@ -22,7 +22,7 @@ public class OrderTemplate {
         private UUID id;
 	    private String title;
 	    private List<String> request_client_info;
-	    private String brand;
+//	    private Brand brand;
 	    private String currency;
 	    private long due;
 	    private int due_type;
@@ -258,12 +258,7 @@ public class OrderTemplate {
 		public void setRequest_client_info(List<String> request_client_info) {
 			this.request_client_info = request_client_info;
 		}
-		public String getBrand() {
-			return brand;
-		}
-		public void setBrand(String brand) {
-			this.brand = brand;
-		}
+		
 		public String getCurrency() {
 			return currency;
 		}
