@@ -52,6 +52,22 @@ public class OrderTemplate {
 	    private LocalDateTime issued_override;
 	    private String referrer;
 	    private String referrer_display_name;
+		private int client_count;
+	    private int product_count;
+	    private int order_count;
+	    private int purchase_count;
+	    private BigDecimal revenue;
+	    private LocalDateTime last_purchase_on;
+//	    private List<SocialShare> social_shares;
+//	    private List<Permittedactions> permitted_actions;
+	    private int max_payment_attempts;
+	    
+	    
+	    @OneToMany(cascade = CascadeType.ALL)
+	  	private List<Orderproduct> orderproduct;
+	  	    
+	    
+	    
 	    public Boolean getDeny_overdue_payment() {
 			return deny_overdue_payment;
 		}
@@ -226,19 +242,9 @@ public class OrderTemplate {
 		public void setMax_payment_attempts(int max_payment_attempts) {
 			this.max_payment_attempts = max_payment_attempts;
 		}
-		private int client_count;
-	    private int product_count;
-	    private int order_count;
-	    private int purchase_count;
-	    private BigDecimal revenue;
-	    private LocalDateTime last_purchase_on;
-//	    private List<SocialShare> social_shares;
-//	    private List<Permittedactions> permitted_actions;
-	    private int max_payment_attempts;
+
 	    
-	    @OneToMany(cascade = CascadeType.ALL)
-		private List<Orderproduct> orderproduct;
-	    
+	  
 	    	    
 		public String getTitle() {
 			return title;
