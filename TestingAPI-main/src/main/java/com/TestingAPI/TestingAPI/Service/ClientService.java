@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.TestingAPI.TestingAPI.Entities.Client;
+import com.TestingAPI.TestingAPI.Entities.Paymentmethods;
 import com.TestingAPI.TestingAPI.Repository.ClientRepository;
+import com.TestingAPI.TestingAPI.Repository.PaymentRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -17,6 +19,9 @@ public class ClientService {
 
 	@Autowired
 	private ClientRepository clientRepository;
+	
+	@Autowired
+	private PaymentRepository paymentrepository;
 
 	public List<Client> getAllClients() {
 		return clientRepository.findAll();
@@ -84,6 +89,30 @@ public class ClientService {
 		}
 		
 		
+	}
+	
+	public List<Paymentmethods> getAllClientPaymentMethods(UUID clientId){
+		return paymentrepository.findByClient(clientId);
+	}
+	
+	public Paymentmethods getClientPaymentMethod(UUID clientId, UUID paymentmethodid) {
+		return paymentrepository.findByIdAndClient(paymentmethodid,clientId);
+	}
+	
+	public Paymentmethods updatePaymentMethod(UUID clientid, UUID paymentmethodid , Paymentmethods updatepaymentmethods) {
+		if(paymentrepository.existsByIdAndClient(paymentmethodid,clientid)) {
+			updatepaymentmethods.setId(paymentmethodid);
+			updatepaymentmethods.setClient(clientid);
+			return paymentrepository.save(updatepaymentmethods);
+		}
+		return null;
+	}
+	
+	@Transactional
+	public void deleteClientPaymentMethod(UUID id, UUID clientid) {
+		if(paymentrepository.existsByIdAndClient(id, clientid)) {
+			paymentrepository.deleteById(id);
+		}
 	}
 	
 }

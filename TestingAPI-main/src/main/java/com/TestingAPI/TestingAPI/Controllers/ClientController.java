@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.TestingAPI.TestingAPI.Entities.Client;
+import com.TestingAPI.TestingAPI.Entities.Paymentmethods;
 import com.TestingAPI.TestingAPI.Service.ClientService;
 
 
@@ -49,4 +50,25 @@ public class ClientController {
 		clientService.deleteClient(id);
 	}
 
+	@GetMapping("/{id}/payments_method")
+	public List<Paymentmethods> getAllPaymentMethods(@PathVariable UUID id) {
+		return clientService.getAllClientPaymentMethods(id);
+	}
+
+	@GetMapping("/{id}/payments_method/{paymentmethodid}")
+	public Paymentmethods getClientPaymentMethod(@PathVariable UUID id,
+			@PathVariable("paymentmethodid") UUID paymentmethodid) {
+		return clientService.getClientPaymentMethod(id, paymentmethodid);
+	}
+
+	@PutMapping("/{id}/payments_method/{paymentmethodid}")
+	public Paymentmethods updatePaymentMethods(@PathVariable UUID id,
+			@PathVariable("paymentmethodid") UUID paymentmethodid, @RequestBody Paymentmethods paymentmethods) {
+		return clientService.updatePaymentMethod(id, paymentmethodid, paymentmethods);
+	}
+
+	@DeleteMapping("/{id}/payments_method/{paymentmethodid}")
+	public void deletePaymentMethods(@PathVariable UUID id, @PathVariable("paymentmethodid") UUID paymentmethodid) {
+		clientService.deleteClientPaymentMethod(paymentmethodid, id);
+	}
 }
