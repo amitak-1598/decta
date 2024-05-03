@@ -1,12 +1,15 @@
 package com.TestingAPI.TestingAPI.Controllers;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.TestingAPI.TestingAPI.Entities.Client;
 import com.TestingAPI.TestingAPI.Entities.Paymentmethods;
 import com.TestingAPI.TestingAPI.Service.ClientService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 
 @RestController
@@ -70,5 +74,15 @@ public class ClientController {
 	@DeleteMapping("/{id}/payments_method/{paymentmethodid}")
 	public void deletePaymentMethods(@PathVariable UUID id, @PathVariable("paymentmethodid") UUID paymentmethodid) {
 		clientService.deleteClientPaymentMethod(paymentmethodid, id);
+	}
+	
+	@PatchMapping("/{id}/payments_method/{paymentmethodid}")
+	public ResponseEntity<Paymentmethods> partiallyUpdateMethods(@PathVariable UUID id, @PathVariable("paymentmethodid") UUID paymentmethodid,@RequestBody Map<String, Object> updates) throws JsonProcessingException, IllegalArgumentException{
+		Paymentmethods paymentmethods = clientService.PartiallyUpdatePaymentmethod(paymentmethodid, id, updates);
+		if(paymentmethods!=null) {
+			return new ResponseEntity<>(paymentmethods,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 }
