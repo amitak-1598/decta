@@ -59,7 +59,7 @@ public class OrderController {
 		return orderservice.updateStatus(order, orderid);
 	}
 
-	@PostMapping("/{orderId}")
+	@PostMapping("/{orderId}/received")
 	public Orders orderStatusReceived(@PathVariable("orderId") UUID orderid) {
 		return orderservice.updateStatusAsReceived(orderid);
 	}
