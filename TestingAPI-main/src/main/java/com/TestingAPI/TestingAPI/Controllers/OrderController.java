@@ -1,6 +1,7 @@
 package com.TestingAPI.TestingAPI.Controllers;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,15 @@ public class OrderController {
 		}else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@PostMapping("/{orderId}")
+	public Orders updateOrderStatus(@RequestBody Map<String, Object> order, @PathVariable("orderId") UUID orderid) {
+		return orderservice.updateStatus(order, orderid);
+	}
+
+	@PostMapping("/{orderId}")
+	public Orders orderStatusReceived(@PathVariable("orderId") UUID orderid) {
+		return orderservice.updateStatusAsReceived(orderid);
 	}
 }

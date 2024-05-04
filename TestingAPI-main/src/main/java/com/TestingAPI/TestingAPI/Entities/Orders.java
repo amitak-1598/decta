@@ -120,7 +120,7 @@ public class Orders {
 	private Double fee_amount;
 	private Double fee_discount;
 
-	private List<String> status;
+	private String status;
 
 
 	private Long issued;
@@ -453,10 +453,11 @@ public class Orders {
 	public void setFee_discount(Double fee_discount) {
 		this.fee_discount = fee_discount;
 	}
-	public List<String> getStatus() {
+	
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(List<String> status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public Long getIssued() {

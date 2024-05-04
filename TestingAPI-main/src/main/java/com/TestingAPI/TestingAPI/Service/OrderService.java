@@ -1,6 +1,8 @@
 package com.TestingAPI.TestingAPI.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,29 @@ public class OrderService {
 		} else {
 			return false;
 		}
+	}
+	
+	public Orders updateStatus(Map<String,Object> body, UUID orderid) {
+		 Optional<Orders> orderentity  = orderrepository.findById(orderid);
+		 if(orderentity != null) {
+			 String status = (String) body.get("status");
+			 Orders order = orderentity.get();
+			order.setStatus(status);
+			orderrepository.save(order);
+			return order;
+		 }
+		 return null;
+	}
+	
+	public Orders updateStatusAsReceived(UUID orderid) {
+		 Optional<Orders> orderentity  = orderrepository.findById(orderid);
+		 if(orderentity != null) {
+			 Orders order = orderentity.get();
+			order.setStatus("received");
+			orderrepository.save(order);
+			return order;
+		 }
+		 return null;
 	}
 	
 	
