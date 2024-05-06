@@ -13,4 +13,6 @@ public interface OrderRepository  extends JpaRepository<Orders,UUID>{
 
 	List<Orders> findBySubscriptionid(UUID subscriptionid);
 
+	List<Orders> findByTemplateid(UUID templateid);
+
 }

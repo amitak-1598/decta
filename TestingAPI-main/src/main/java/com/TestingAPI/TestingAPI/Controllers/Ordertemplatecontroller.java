@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.TestingAPI.TestingAPI.Entities.Client;
 import com.TestingAPI.TestingAPI.Entities.OrderTemplate;
 import com.TestingAPI.TestingAPI.Entities.Orderproduct;
+import com.TestingAPI.TestingAPI.Entities.Orders;
 import com.TestingAPI.TestingAPI.Entities.Product;
 import com.TestingAPI.TestingAPI.Repository.ClientRepository;
 import com.TestingAPI.TestingAPI.Repository.OrderproductRepository;
@@ -47,6 +48,12 @@ public class Ordertemplatecontroller {
 	public ResponseEntity<OrderTemplate> createOrderTemplate(@RequestBody OrderTemplate invoiceRequest) {
 		OrderTemplate createdInvoiceRequest = ordertemplateservice.createInvoiceRequest(invoiceRequest);
 		return new ResponseEntity<>(createdInvoiceRequest, HttpStatus.CREATED);
+	}
+
+	@PostMapping("/{templateId}/duplicate")
+	public ResponseEntity<OrderTemplate> duplicateOrderTemplate(@PathVariable("templateId") UUID templateid) {
+		OrderTemplate duplicateordertemplate = ordertemplateservice.duplicate(templateid);
+		return new ResponseEntity<>(duplicateordertemplate, HttpStatus.CREATED);
 	}
 
 	@GetMapping
@@ -205,6 +212,12 @@ public class Ordertemplatecontroller {
 			@PathVariable("templateId") UUID templateid) {
 		ordertemplateservice.updateOrderClients(clients, templateid);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@GetMapping("/{templateId}/orders")
+	public ResponseEntity<List<Orders>> getAlltemplateOrders(@PathVariable("templateId") UUID templateId) {
+		List<Orders> ordertemplate = ordertemplateservice.getAllOrderFromTemplate(templateId);
+		return new ResponseEntity<>(ordertemplate, HttpStatus.OK);
 	}
 
 }

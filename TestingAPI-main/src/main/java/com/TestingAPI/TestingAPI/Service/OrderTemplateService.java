@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import com.TestingAPI.TestingAPI.Entities.Client;
 import com.TestingAPI.TestingAPI.Entities.OrderTemplate;
 import com.TestingAPI.TestingAPI.Entities.Orderproduct;
+import com.TestingAPI.TestingAPI.Entities.Orders;
 import com.TestingAPI.TestingAPI.Repository.ClientRepository;
+import com.TestingAPI.TestingAPI.Repository.OrderRepository;
 import com.TestingAPI.TestingAPI.Repository.OrderproductRepository;
 import com.TestingAPI.TestingAPI.Repository.OrdertemplateRepository;
 
@@ -31,8 +33,23 @@ public class OrderTemplateService {
 	@Autowired
 	private ClientRepository clientrepository;
 
+	@Autowired
+	private OrderRepository orderrepository;
+
 	public OrderTemplate createInvoiceRequest(OrderTemplate OrderTemplate) {
 		return Ordertemplaterepository.save(OrderTemplate);
+	}
+
+	public OrderTemplate duplicate(UUID templateid) {
+
+		OrderTemplate duplicate = new OrderTemplate();
+		Optional<OrderTemplate> templatebody = Ordertemplaterepository.findById(templateid);
+		if (templatebody != null) {
+			OrderTemplate ordertemplate = templatebody.get();
+			 
+			Ordertemplaterepository.save(duplicate);
+		}
+		return null;
 	}
 
 	public List<OrderTemplate> getAllInvoiceRequests() {
@@ -173,6 +190,10 @@ public class OrderTemplateService {
 				clientrepository.save(client);
 			}
 		}
+	}
+
+	public List<Orders> getAllOrderFromTemplate(UUID templateid) {
+		return orderrepository.findByTemplateid(templateid);
 	}
 
 }

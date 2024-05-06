@@ -73,6 +73,7 @@ public class Orders {
 	private String type;
 	
 	private UUID subscriptionid;
+	private UUID templateid;
 	
 	private List<String> requestClientInfo;
 	private String currency;
@@ -729,6 +730,12 @@ public class Orders {
 	}
 	public void setSubscriptionid(UUID subscriptionid) {
 		this.subscriptionid = subscriptionid;
+	}
+	public UUID getTemplateid() {
+		return templateid;
+	}
+	public void setTemplateid(UUID templateid) {
+		this.templateid = templateid;
 	}
 	
 	
