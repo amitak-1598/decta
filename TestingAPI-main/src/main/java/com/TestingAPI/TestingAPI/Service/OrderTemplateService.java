@@ -27,7 +27,7 @@ public class OrderTemplateService {
 
 	@Autowired
 	private OrderproductRepository orderproductrepository;
-	
+
 	@Autowired
 	private ClientRepository clientrepository;
 
@@ -161,7 +161,18 @@ public class OrderTemplateService {
 
 	public List<Client> getAllClient(UUID templateId) {
 		return clientrepository.findByTemplateid(templateId);
-		
+
+	}
+
+	public void updateOrderClients(List<Client> clientbody, UUID tempid) {
+
+		for (Client client : clientbody) {
+			UUID clientid = client.getId();
+			Client databaseclient = clientrepository.findByIdAndTemplateid(clientid, tempid);
+			if (databaseclient != null) {
+				clientrepository.save(client);
+			}
+		}
 	}
 
 }

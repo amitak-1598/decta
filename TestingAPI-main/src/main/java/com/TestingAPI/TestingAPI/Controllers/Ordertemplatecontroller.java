@@ -43,10 +43,6 @@ public class Ordertemplatecontroller {
 	@Autowired
 	private ClientService clientservice;
 
-	
-	
-	
-	
 	@PostMapping
 	public ResponseEntity<OrderTemplate> createOrderTemplate(@RequestBody OrderTemplate invoiceRequest) {
 		OrderTemplate createdInvoiceRequest = ordertemplateservice.createInvoiceRequest(invoiceRequest);
@@ -98,8 +94,6 @@ public class Ordertemplatecontroller {
 		}
 	}
 
-	
-	
 	@PostMapping("/{id}/product")
 	public ResponseEntity<Orderproduct> createTemplateOrderproduct(@RequestBody Orderproduct orderproductRequest,
 			@PathVariable("id") UUID tempid) {
@@ -165,8 +159,6 @@ public class Ordertemplatecontroller {
 
 	}
 
-	
-	
 	@PostMapping("/{templateId}/clients")
 	public ResponseEntity<Client> createOrdertemplateclient(@RequestBody Client clientRequest,
 			@PathVariable("templateId") UUID templateid) {
@@ -183,7 +175,8 @@ public class Ordertemplatecontroller {
 	}
 
 	@GetMapping("/{templateId}/clients/{clientid}")
-	public ResponseEntity<Client> getAClient(@PathVariable("templateId") UUID tempid, @PathVariable("clientid") UUID clientid) {
+	public ResponseEntity<Client> getAClient(@PathVariable("templateId") UUID tempid,
+			@PathVariable("clientid") UUID clientid) {
 		Client clienttemplate = clientrepository.findByIdAndTemplateid(clientid, tempid);
 		return new ResponseEntity<>(clienttemplate, HttpStatus.OK);
 	}
@@ -206,4 +199,12 @@ public class Ordertemplatecontroller {
 		clientservice.deleteTemplateClient(clientid, templateid);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+
+	@PostMapping("/{templateId}/clients/bulk_update")
+	public ResponseEntity<Void> updateClientTemplate(@RequestBody List<Client> clients,
+			@PathVariable("templateId") UUID templateid) {
+		ordertemplateservice.updateOrderClients(clients, templateid);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
 }
