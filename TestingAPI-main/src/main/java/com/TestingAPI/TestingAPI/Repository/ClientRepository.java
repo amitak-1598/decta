@@ -23,4 +23,6 @@ public interface ClientRepository  extends JpaRepository<Client, UUID>{
 
 	boolean existsByIdAndSubscriptionid(UUID clientid, UUID subscriptionid);
 
+	Client findByMerchant(UUID id);
+
 }

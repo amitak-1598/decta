@@ -64,7 +64,7 @@ public class Client {
 	@OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
     private Createdby2 createdBy;
 
-	private String merchant;
+	private UUID merchant;
 	private String account_type;
 	private int saved_cards_count;
 
@@ -286,11 +286,13 @@ public class Client {
 		this.bcc = bcc;
 	}
 
-	public String getMerchant() {
+	
+
+	public UUID getMerchant() {
 		return merchant;
 	}
 
-	public void setMerchant(String merchant) {
+	public void setMerchant(UUID merchant) {
 		this.merchant = merchant;
 	}
 
@@ -332,6 +334,20 @@ public class Client {
 
 	public void setSubscriptionid(UUID subscriptionid) {
 		this.subscriptionid = subscriptionid;
+	}
+
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", email=" + email + ", phone=" + phone + ", first_name=" + first_name
+				+ ", last_name=" + last_name + ", birth_date=" + birth_date + ", personal_code=" + personal_code
+				+ ", brand_name=" + brand_name + ", legal_name=" + legal_name + ", registration_nr=" + registration_nr
+				+ ", vat_payer_nr=" + vat_payer_nr + ", legal_address=" + legal_address + ", address=" + address
+				+ ", country=" + country + ", state=" + state + ", city=" + city + ", zip_code=" + zip_code
+				+ ", shipping_details=" + shipping_details + ", bank_account=" + bank_account + ", bank_code="
+				+ bank_code + ", cc=" + cc + ", bcc=" + bcc + ", display_name=" + display_name + ", order_count="
+				+ order_count + ", createdBy=" + createdBy + ", merchant=" + merchant + ", account_type=" + account_type
+				+ ", saved_cards_count=" + saved_cards_count + ", verified_cards=" + verified_cards + ", templateid="
+				+ templateid + ", subscriptionid=" + subscriptionid + "]";
 	}
 
 
