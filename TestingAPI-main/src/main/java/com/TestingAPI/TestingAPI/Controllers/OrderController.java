@@ -65,4 +65,9 @@ public class OrderController {
 	public Orders orderStatusReceived(@PathVariable("orderId") UUID orderid) {
 		return orderservice.updateStatusAsReceived(orderid);
 	}
+	
+	@PostMapping("/{orderId}/cancel")
+	public Orders cancleAnOrder(@PathVariable("orderId") UUID orderid) {
+		return orderservice.cancelAnOrder(orderid);
+	}
 }
