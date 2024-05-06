@@ -1,4 +1,5 @@
 package com.TestingAPI.TestingAPI.Controllers;
+
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.TestingAPI.TestingAPI.Entities.Client;
+import com.TestingAPI.TestingAPI.Entities.Orders;
 import com.TestingAPI.TestingAPI.Entities.Product;
 import com.TestingAPI.TestingAPI.Entities.Subscription;
 import com.TestingAPI.TestingAPI.Repository.ClientRepository;
 import com.TestingAPI.TestingAPI.Dao.ProductRepository;
 import com.TestingAPI.TestingAPI.Service.ClientService;
+import com.TestingAPI.TestingAPI.Service.OrderService;
 import com.TestingAPI.TestingAPI.Service.SubscriptionService;
 
 @RestController
@@ -37,6 +40,9 @@ public class SubscriptionController {
 
 	@Autowired
 	private ClientService clientservice;
+
+	@Autowired
+	private OrderService orderservice;
 
 	@PostMapping("/subscriptions")
 	public ResponseEntity<Subscription> createSubscription(@RequestBody Subscription subscription) {
@@ -93,8 +99,6 @@ public class SubscriptionController {
 		}
 	}
 
-	
-	
 	@PostMapping("/subscriptions/{subscriptionId}/products")
 	public ResponseEntity<Product> createSubscriptionproduct(@RequestBody Product productRequest,
 			@PathVariable("subscriptionId") UUID subscriptionid) {
@@ -136,8 +140,6 @@ public class SubscriptionController {
 		}
 	}
 
-	
-	
 	@PostMapping("/subscriptions/{subscriptionId}/clients")
 	public ResponseEntity<Client> createSubscriptionClient(@RequestBody Client clientRequest,
 			@PathVariable("subscriptionId") UUID subscriptionId) {
@@ -177,5 +179,11 @@ public class SubscriptionController {
 			@PathVariable("clientid") UUID clientid) {
 		clientservice.deleteSubscriptionClient(clientid, subscriptionId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@GetMapping("/subscriptions/{subscriptionId}/orders")
+	public ResponseEntity<List<Orders>> getAllSubscriptionOrder(@PathVariable("subscriptionId") UUID SubscriptionId) {
+		List<Orders> ordersubscription = orderservice.getAllOrderSubscription(SubscriptionId);
+		return new ResponseEntity<>(ordersubscription, HttpStatus.OK);
 	}
 }

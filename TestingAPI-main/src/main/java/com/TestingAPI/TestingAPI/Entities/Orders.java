@@ -72,7 +72,7 @@ public class Orders {
 	
 	private String type;
 	
-	
+	private UUID subscriptionid;
 	
 	private List<String> requestClientInfo;
 	private String currency;
@@ -723,6 +723,12 @@ public class Orders {
 	}
 	public void setIssuer(Issuer issuer) {
 		this.issuer = issuer;
+	}
+	public UUID getSubscriptionid() {
+		return subscriptionid;
+	}
+	public void setSubscriptionid(UUID subscriptionid) {
+		this.subscriptionid = subscriptionid;
 	}
 	
 	

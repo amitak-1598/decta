@@ -70,5 +70,8 @@ public class OrderService {
 		 return null;
 	}
 	
+	public List<Orders> getAllOrderSubscription(UUID subscriptionid){
+		return orderrepository.findBySubscriptionid(subscriptionid);
+	}
 	
 }
