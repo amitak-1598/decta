@@ -1,5 +1,7 @@
 package com.TestingAPI.TestingAPI.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -42,11 +44,25 @@ public class OrderTemplateService {
 
 	public OrderTemplate duplicate(UUID templateid) {
 
-		OrderTemplate duplicate = new OrderTemplate();
 		Optional<OrderTemplate> templatebody = Ordertemplaterepository.findById(templateid);
 		if (templatebody != null) {
 			OrderTemplate ordertemplate = templatebody.get();
-			 
+			OrderTemplate duplicate = new OrderTemplate(ordertemplate.getTitle(),
+					ordertemplate.getRequest_client_info(), ordertemplate.getCurrency(), ordertemplate.getDue(),
+					ordertemplate.getDue_type(), ordertemplate.getLanguage(), ordertemplate.getTerminal(),
+					ordertemplate.getDeny_overdue_payment(), ordertemplate.getSkip_capture(), ordertemplate.getNotes(),
+					ordertemplate.getIs_payable(), ordertemplate.getTerminal_processing_id(),
+					ordertemplate.getDownload_link(), ordertemplate.getPrint_link(),
+					ordertemplate.getIframe_checkout_send_invoice(), ordertemplate.getSubtotal(),
+					ordertemplate.getTotal_tax(), ordertemplate.getTotal_discount(), ordertemplate.getTotal(),
+					ordertemplate.getSubtotal_override(), ordertemplate.getTotal_tax_override(),
+					ordertemplate.getTotal_discount_override(), ordertemplate.getTotal_override(),
+					ordertemplate.getCreated(), ordertemplate.getModified(), ordertemplate.getViewed(),
+					ordertemplate.getIssued_override(), ordertemplate.getReferrer(),
+					ordertemplate.getReferrer_display_name(), ordertemplate.getClient_count(),
+					ordertemplate.getProduct_count(), ordertemplate.getOrder_count(), ordertemplate.getPurchase_count(),
+					ordertemplate.getRevenue(), ordertemplate.getLast_purchase_on(),
+					ordertemplate.getMax_payment_attempts(), ordertemplate.getOrderproduct());
 			Ordertemplaterepository.save(duplicate);
 		}
 		return null;

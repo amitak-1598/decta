@@ -301,8 +301,59 @@ public class OrderTemplate {
 		public void setOrderproduct(List<Orderproduct> orderproduct) {
 			this.orderproduct = orderproduct;
 		}
+		public OrderTemplate(String title, List<String> request_client_info, String currency, long due, int due_type,
+				String language, String terminal, Boolean deny_overdue_payment, Boolean skip_capture, String notes,
+				Boolean is_payable, String terminal_processing_id, String download_link, String print_link,
+				Boolean iframe_checkout_send_invoice, BigDecimal subtotal, BigDecimal total_tax,
+				BigDecimal total_discount, BigDecimal total, BigDecimal subtotal_override,
+				BigDecimal total_tax_override, BigDecimal total_discount_override, BigDecimal total_override,
+				LocalDateTime created, LocalDateTime modified, LocalDateTime viewed, LocalDateTime issued_override,
+				String referrer, String referrer_display_name, int client_count, int product_count, int order_count,
+				int purchase_count, BigDecimal revenue, LocalDateTime last_purchase_on, int max_payment_attempts,
+				List<Orderproduct> orderproduct) {
+			super();
+			this.title = title;
+			this.request_client_info = request_client_info;
+			this.currency = currency;
+			this.due = due;
+			this.due_type = due_type;
+			this.language = language;
+			this.terminal = terminal;
+			this.deny_overdue_payment = deny_overdue_payment;
+			this.skip_capture = skip_capture;
+			this.notes = notes;
+			this.is_payable = is_payable;
+			this.terminal_processing_id = terminal_processing_id;
+			this.download_link = download_link;
+			this.print_link = print_link;
+			this.iframe_checkout_send_invoice = iframe_checkout_send_invoice;
+			this.subtotal = subtotal;
+			this.total_tax = total_tax;
+			this.total_discount = total_discount;
+			this.total = total;
+			this.subtotal_override = subtotal_override;
+			this.total_tax_override = total_tax_override;
+			this.total_discount_override = total_discount_override;
+			this.total_override = total_override;
+			this.created = created;
+			this.modified = modified;
+			this.viewed = viewed;
+			this.issued_override = issued_override;
+			this.referrer = referrer;
+			this.referrer_display_name = referrer_display_name;
+			this.client_count = client_count;
+			this.product_count = product_count;
+			this.order_count = order_count;
+			this.purchase_count = purchase_count;
+			this.revenue = revenue;
+			this.last_purchase_on = last_purchase_on;
+			this.max_payment_attempts = max_payment_attempts;
+			this.orderproduct = orderproduct;
+		}
+		
+		
 	
-	
+		public OrderTemplate() {}
 		
 		
 		
