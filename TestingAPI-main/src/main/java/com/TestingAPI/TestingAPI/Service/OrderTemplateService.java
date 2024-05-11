@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,10 @@ public class OrderTemplateService {
 
 	@Autowired
 	private OrderRepository orderrepository;
+	
+//	@Autowired
+//	private ModelMapper modelMapper;
+
 
 	public OrderTemplate createInvoiceRequest(OrderTemplate OrderTemplate) {
 		return Ordertemplaterepository.save(OrderTemplate);
@@ -61,8 +66,10 @@ public class OrderTemplateService {
 					ordertemplate.getIssued_override(), ordertemplate.getReferrer(),
 					ordertemplate.getReferrer_display_name(), ordertemplate.getClient_count(),
 					ordertemplate.getProduct_count(), ordertemplate.getOrder_count(), ordertemplate.getPurchase_count(),
-					ordertemplate.getRevenue(), ordertemplate.getLast_purchase_on(),
-					ordertemplate.getMax_payment_attempts(), ordertemplate.getOrderproduct());
+					ordertemplate.getRevenue(), ordertemplate.getLast_purchase_on(),				
+					ordertemplate.getMax_payment_attempts(), null
+					);
+			        
 			Ordertemplaterepository.save(duplicate);
 		}
 		return null;

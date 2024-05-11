@@ -19,9 +19,7 @@ public class VerifiedCard {
 	private String created_on;
 	private String status;
 
-	// @ManyToOne
-	// @JoinColumn(name = "invoice_id")
-	// private Invoice invoice;
+	
 
 	public UUID getId() {
 		return id;
@@ -63,12 +61,6 @@ public class VerifiedCard {
 		this.status = status;
 	}
 
-	// public Invoice getInvoice() {
-	// 	return invoice;
-	// }
-
-	// public void setInvoice(Invoice invoice) {
-	// 	this.invoice = invoice;
-	// }
+	
 
 }

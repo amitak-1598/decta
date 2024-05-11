@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.TestingAPI.TestingAPI.Entities.Client;
 import com.TestingAPI.TestingAPI.Entities.OrderTemplate;
+import com.TestingAPI.TestingAPI.Entities.Orderclient;
 import com.TestingAPI.TestingAPI.Entities.Orderproduct;
 import com.TestingAPI.TestingAPI.Entities.Orders;
 import com.TestingAPI.TestingAPI.Entities.Product;
 import com.TestingAPI.TestingAPI.Repository.ClientRepository;
+import com.TestingAPI.TestingAPI.Repository.OrderclientRepository;
 import com.TestingAPI.TestingAPI.Repository.OrderproductRepository;
 import com.TestingAPI.TestingAPI.Service.ClientService;
 import com.TestingAPI.TestingAPI.Service.OrderTemplateService;
@@ -44,16 +46,15 @@ public class Ordertemplatecontroller {
 	@Autowired
 	private ClientService clientservice;
 
+	@Autowired
+	private OrderclientRepository orderclientrepository;
+
+	// OrderTemplate
+
 	@PostMapping
 	public ResponseEntity<OrderTemplate> createOrderTemplate(@RequestBody OrderTemplate invoiceRequest) {
 		OrderTemplate createdInvoiceRequest = ordertemplateservice.createInvoiceRequest(invoiceRequest);
 		return new ResponseEntity<>(createdInvoiceRequest, HttpStatus.CREATED);
-	}
-
-	@PostMapping("/{templateId}/duplicate")
-	public ResponseEntity<OrderTemplate> duplicateOrderTemplate(@PathVariable("templateId") UUID templateid) {
-		OrderTemplate duplicateordertemplate = ordertemplateservice.duplicate(templateid);
-		return new ResponseEntity<>(duplicateordertemplate, HttpStatus.CREATED);
 	}
 
 	@GetMapping
@@ -80,12 +81,6 @@ public class Ordertemplatecontroller {
 		}
 	}
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteOrderTemplateRequest(@PathVariable UUID id) {
-		ordertemplateservice.deleteInvoiceRequest(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
-
 	@PatchMapping("/{id}")
 	public ResponseEntity<OrderTemplate> partialUpdateOrderTemplate(@PathVariable UUID id,
 			@RequestBody Map<String, Object> updates) {
@@ -100,6 +95,14 @@ public class Ordertemplatecontroller {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteOrderTemplateRequest(@PathVariable UUID id) {
+		ordertemplateservice.deleteInvoiceRequest(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	// OrderTemplateProduct
 
 	@PostMapping("/{id}/product")
 	public ResponseEntity<Orderproduct> createTemplateOrderproduct(@RequestBody Orderproduct orderproductRequest,
@@ -166,6 +169,8 @@ public class Ordertemplatecontroller {
 
 	}
 
+	// OrderTemplateClient
+
 	@PostMapping("/{templateId}/clients")
 	public ResponseEntity<Client> createOrdertemplateclient(@RequestBody Client clientRequest,
 			@PathVariable("templateId") UUID templateid) {
@@ -174,6 +179,15 @@ public class Ordertemplatecontroller {
 		Client createdclientRequest = clientrepository.save(clientRequest);
 		return new ResponseEntity<>(createdclientRequest, HttpStatus.CREATED);
 	}
+
+//	@PostMapping("/{templateId}/clients")
+//	public ResponseEntity<Client> createOrdertemplateclient(@RequestBody Orderclient clientRequest,
+//			@PathVariable("templateId") UUID templateid) {
+//		clientRequest.setTemplateid(templateid);
+//
+//		Client createdclientRequest = clientrepository.save(clientRequest);
+//		return new ResponseEntity<>(createdclientRequest, HttpStatus.CREATED);
+//	}
 
 	@GetMapping("/{templateId}/clients")
 	public ResponseEntity<List<Client>> getAlltemplateclients(@PathVariable("templateId") UUID templateId) {
@@ -214,10 +228,35 @@ public class Ordertemplatecontroller {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@PatchMapping("/{templateid}/clients/{orderclientid}")
+	public ResponseEntity<Void> patchField(@PathVariable("templateid") UUID templateid,
+			@PathVariable("orderclientid") UUID id, @RequestBody Orderclient body) {
+		Optional<Orderclient> data = orderclientrepository.findByIdAndTemplateid(id, templateid);
+		Orderclient databaseEntity = data.get();
+		databaseEntity.setIs_added(body.isIs_added());
+		orderclientrepository.save(databaseEntity);
+		return new ResponseEntity<>(HttpStatus.OK);
+		
+	}
+
+	@PostMapping("/{templateId}/duplicate")
+	public ResponseEntity<OrderTemplate> duplicateOrderTemplate(@PathVariable("templateId") UUID templateid) {
+		OrderTemplate duplicateordertemplate = ordertemplateservice.duplicate(templateid);
+		return new ResponseEntity<>(duplicateordertemplate, HttpStatus.CREATED);
+	}
+
 	@GetMapping("/{templateId}/orders")
 	public ResponseEntity<List<Orders>> getAlltemplateOrders(@PathVariable("templateId") UUID templateId) {
 		List<Orders> ordertemplate = ordertemplateservice.getAllOrderFromTemplate(templateId);
 		return new ResponseEntity<>(ordertemplate, HttpStatus.OK);
+	}
+
+	// Auxillary
+
+	@PostMapping("/orderclient")
+	public ResponseEntity<Orderclient> createOrderTemplate(@RequestBody Orderclient orderclient) {
+		Orderclient orderclientsave = orderclientrepository.save(orderclient);
+		return new ResponseEntity<>(orderclientsave, HttpStatus.CREATED);
 	}
 
 }

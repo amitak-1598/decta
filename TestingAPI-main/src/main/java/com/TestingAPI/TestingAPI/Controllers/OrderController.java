@@ -70,4 +70,9 @@ public class OrderController {
 	public Orders cancleAnOrder(@PathVariable("orderId") UUID orderid) {
 		return orderservice.cancelAnOrder(orderid);
 	}
+	
+//	@PostMapping("/{orderId}/generate_template")
+//	public OrderTemplate postOrderTemplate(@PathVariable("orderId") UUID orderid) {
+//		             
+//	}
 }

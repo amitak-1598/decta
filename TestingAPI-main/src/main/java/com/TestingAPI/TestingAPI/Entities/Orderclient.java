@@ -73,6 +73,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 	    private boolean is_added;	  
 	    private int order_count;	  
 	    private String account_type;
+	    
+	    private UUID templateid;
+	    
+	    
+	    
 		public UUID getId() {
 			return id;
 		}
@@ -300,6 +305,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 		}
 		public void setAccount_type(String account_type) {
 			this.account_type = account_type;
+		}
+		public UUID getTemplateid() {
+			return templateid;
+		}
+		public void setTemplateid(UUID templateid) {
+			this.templateid = templateid;
 		}
 
 	   

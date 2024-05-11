@@ -22,7 +22,8 @@ public class OrderTemplate {
         private UUID id;
 	    private String title;
 	    private List<String> request_client_info;
-//	    private Brand brand;
+	    
+	   // private Brand brand;
 	    private String currency;
 	    private long due;
 	    private int due_type;
@@ -61,6 +62,8 @@ public class OrderTemplate {
 //	    private List<SocialShare> social_shares;
 //	    private List<Permittedactions> permitted_actions;
 	    private int max_payment_attempts;
+	    
+	    private UUID orderid;
 	    
 	    
 	    @OneToMany(cascade = CascadeType.ALL)
@@ -354,6 +357,12 @@ public class OrderTemplate {
 		
 	
 		public OrderTemplate() {}
+		public UUID getOrderid() {
+			return orderid;
+		}
+		public void setOrderid(UUID orderid) {
+			this.orderid = orderid;
+		}
 		
 		
 		

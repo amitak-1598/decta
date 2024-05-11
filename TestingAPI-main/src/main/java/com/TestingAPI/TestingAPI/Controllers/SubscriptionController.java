@@ -44,6 +44,8 @@ public class SubscriptionController {
 	@Autowired
 	private OrderService orderservice;
 
+	
+	                               // Subscription
 	@PostMapping("/subscriptions")
 	public ResponseEntity<Subscription> createSubscription(@RequestBody Subscription subscription) {
 		Subscription createdSubscription = subscriptionService.createSubscription(subscription);
@@ -99,6 +101,8 @@ public class SubscriptionController {
 		}
 	}
 
+	
+	                              // subscriptionproducts
 	@PostMapping("/subscriptions/{subscriptionId}/products")
 	public ResponseEntity<Product> createSubscriptionproduct(@RequestBody Product productRequest,
 			@PathVariable("subscriptionId") UUID subscriptionid) {
@@ -140,6 +144,9 @@ public class SubscriptionController {
 		}
 	}
 
+	
+	
+	                             // Subscriptionclients
 	@PostMapping("/subscriptions/{subscriptionId}/clients")
 	public ResponseEntity<Client> createSubscriptionClient(@RequestBody Client clientRequest,
 			@PathVariable("subscriptionId") UUID subscriptionId) {

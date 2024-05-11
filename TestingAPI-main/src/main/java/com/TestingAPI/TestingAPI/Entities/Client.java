@@ -41,10 +41,6 @@ public class Client {
 	private String city;
 	private String zip_code;
 	
-	
-//    @OneToOne(cascade = CascadeType.ALL)
-//    private Invoice invoice;
-
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "shipping_details_id")
 	private ShippingDetails shipping_details;
@@ -237,14 +233,6 @@ public class Client {
 	public void setZip_code(String zip_code) {
 		this.zip_code = zip_code;
 	}
-
-//	public Invoice getInvoice() {
-//		return invoice;
-//	}
-//
-//	public void setInvoice(Invoice invoice) {
-//		this.invoice = invoice;
-//	}
 
 	public ShippingDetails getShipping_details() {
 		return shipping_details;
