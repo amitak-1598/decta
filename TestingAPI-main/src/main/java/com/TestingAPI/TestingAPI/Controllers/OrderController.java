@@ -15,47 +15,52 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.TestingAPI.TestingAPI.Entities.APMPayout;
+import com.TestingAPI.TestingAPI.Entities.B2POrder;
+import com.TestingAPI.TestingAPI.Entities.B2PTransactionRequest;
+import com.TestingAPI.TestingAPI.Entities.OGOrder;
+import com.TestingAPI.TestingAPI.Entities.OgTransaction;
 import com.TestingAPI.TestingAPI.Entities.Orders;
+import com.TestingAPI.TestingAPI.Entities.SdwoPayout;
+import com.TestingAPI.TestingAPI.Entities.Zimpler;
 import com.TestingAPI.TestingAPI.Service.OrderService;
-
 
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
 
-	
 	@Autowired
 	private OrderService orderservice;
-	
+
 	@PostMapping
 	public Orders addOrder(@RequestBody Orders order) {
-	
+
 		return orderservice.addOrder(order);
 	}
-	
+
 	@GetMapping("/{id}")
 	public Orders getOrderById(@PathVariable UUID id) {
 
 		return orderservice.getOrderById(id);
 	}
-	
+
 	@GetMapping
 	public List<Orders> getAllOrder() {
 		return orderservice.getAllOrder();
 	}
-	
+
 	@DeleteMapping("/{orderId}")
-	public ResponseEntity<Void> deleteOrder(@PathVariable("orderId") UUID orderId){
-		
+	public ResponseEntity<Void> deleteOrder(@PathVariable("orderId") UUID orderId) {
+
 		boolean deleted = orderservice.deleteOrder(orderId);
-		if(deleted) {
+		if (deleted) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			
-		}else {
+
+		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@PostMapping("/{orderId}")
 	public Orders updateOrderStatus(@RequestBody Map<String, Object> order, @PathVariable("orderId") UUID orderid) {
 		return orderservice.updateStatus(order, orderid);
@@ -65,14 +70,52 @@ public class OrderController {
 	public Orders orderStatusReceived(@PathVariable("orderId") UUID orderid) {
 		return orderservice.updateStatusAsReceived(orderid);
 	}
-	
+
 	@PostMapping("/{orderId}/cancel")
 	public Orders cancleAnOrder(@PathVariable("orderId") UUID orderid) {
 		return orderservice.cancelAnOrder(orderid);
 	}
-	
+
 //	@PostMapping("/{orderId}/generate_template")
 //	public OrderTemplate postOrderTemplate(@PathVariable("orderId") UUID orderid) {
 //		             
 //	}
+
+	@PostMapping("/init_og")
+	public OGOrder addOgOrder(@RequestBody OGOrder ogorder) {
+
+		return orderservice.postOgorder(ogorder);
+	}
+
+	@PostMapping("ogapi_do_url")
+	public OgTransaction addOgTransaction(@RequestBody OgTransaction ogtransaction) {
+
+		return orderservice.executeOgTransaction(ogtransaction);
+	}
+
+	@PostMapping("init_apm_payout")
+	public APMPayout addAPMPayout(@RequestBody APMPayout apmpayout) {
+		return orderservice.postAPMPayout(apmpayout);
+	}
+
+	@PostMapping("Zimplerapi_do_urlinit_zimpler_payout")
+	public Zimpler addZimplerPayout(@RequestBody Zimpler zimpler) {
+		return orderservice.postZemplerPayout(zimpler);
+	}
+
+	@PostMapping("init_b2p")
+	public B2POrder addB2POrder(@RequestBody B2POrder b2porder) {
+		return orderservice.postB2POrder(b2porder);
+	}
+
+	@PostMapping("b2papi_do_url")
+	public B2PTransactionRequest addB2PTransactionRequest(@RequestBody B2PTransactionRequest b2ptransaction) {
+		return orderservice.postB2PTransactionRequest(b2ptransaction);
+	}
+
+	@PostMapping("init_sdwo_payout")
+	public SdwoPayout addSdwoPayout(@RequestBody SdwoPayout sdwopayout) {
+		return orderservice.postSdwoPayout(sdwopayout);
+	}
+
 }
