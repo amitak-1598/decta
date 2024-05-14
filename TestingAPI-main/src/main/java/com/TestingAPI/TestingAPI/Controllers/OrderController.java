@@ -76,10 +76,12 @@ public class OrderController {
 		return orderservice.cancelAnOrder(orderid);
 	}
 
-//	@PostMapping("/{orderId}/generate_template")
-//	public OrderTemplate postOrderTemplate(@PathVariable("orderId") UUID orderid) {
-//		             
-//	}
+	@PostMapping("/{orderId}/generate_template")
+	public void postOrderTemplate(@PathVariable("orderId") UUID orderid) {
+		orderservice.generateTemplate(orderid);
+	}
+
+	// Orders Payment API's
 
 	@PostMapping("/init_og")
 	public OGOrder addOgOrder(@RequestBody OGOrder ogorder) {

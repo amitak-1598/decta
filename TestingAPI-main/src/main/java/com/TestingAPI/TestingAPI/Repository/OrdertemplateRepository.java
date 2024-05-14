@@ -10,4 +10,6 @@ import com.TestingAPI.TestingAPI.Entities.OrderTemplate;
 @Repository
 public interface OrdertemplateRepository  extends JpaRepository<OrderTemplate,UUID>{
 
+	OrderTemplate findByOrderid(UUID orderid);
+
 }

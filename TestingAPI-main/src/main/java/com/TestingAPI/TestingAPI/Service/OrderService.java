@@ -13,6 +13,7 @@ import com.TestingAPI.TestingAPI.Entities.B2POrder;
 import com.TestingAPI.TestingAPI.Entities.B2PTransactionRequest;
 import com.TestingAPI.TestingAPI.Entities.OGOrder;
 import com.TestingAPI.TestingAPI.Entities.OgTransaction;
+import com.TestingAPI.TestingAPI.Entities.OrderTemplate;
 import com.TestingAPI.TestingAPI.Entities.Orders;
 import com.TestingAPI.TestingAPI.Entities.SdwoPayout;
 import com.TestingAPI.TestingAPI.Entities.Zimpler;
@@ -22,6 +23,7 @@ import com.TestingAPI.TestingAPI.Repository.B2PTransactionRepository;
 import com.TestingAPI.TestingAPI.Repository.OgTransactionRepository;
 import com.TestingAPI.TestingAPI.Repository.OgorderRepository;
 import com.TestingAPI.TestingAPI.Repository.OrderRepository;
+import com.TestingAPI.TestingAPI.Repository.OrdertemplateRepository;
 import com.TestingAPI.TestingAPI.Repository.SdwoRepository;
 import com.TestingAPI.TestingAPI.Repository.ZimplerRepository;
 
@@ -32,6 +34,9 @@ public class OrderService {
 
 	@Autowired
 	private OrderRepository orderrepository;
+
+	@Autowired
+	private OrdertemplateRepository ordertemplaterepository;
 
 	@Autowired
 	private OgorderRepository orgorderrepository;
@@ -145,6 +150,28 @@ public class OrderService {
 
 	public SdwoPayout postSdwoPayout(SdwoPayout sdwopayout) {
 		return sdworepository.save(sdwopayout);
+	}
+
+	public void generateTemplate(UUID orderid) {
+		OrderTemplate ordertemplate = ordertemplaterepository.findByOrderid(orderid);
+		OrderTemplate generatedtemplate = new OrderTemplate(ordertemplate.getTitle(),
+				ordertemplate.getRequest_client_info(), ordertemplate.getCurrency(), ordertemplate.getDue(),
+				ordertemplate.getDue_type(), ordertemplate.getLanguage(), ordertemplate.getTerminal(),
+				ordertemplate.getDeny_overdue_payment(), ordertemplate.getSkip_capture(), ordertemplate.getNotes(),
+				ordertemplate.getIs_payable(), ordertemplate.getTerminal_processing_id(),
+				ordertemplate.getDownload_link(), ordertemplate.getPrint_link(),
+				ordertemplate.getIframe_checkout_send_invoice(), ordertemplate.getSubtotal(),
+				ordertemplate.getTotal_tax(), ordertemplate.getTotal_discount(), ordertemplate.getTotal(),
+				ordertemplate.getSubtotal_override(), ordertemplate.getTotal_tax_override(),
+				ordertemplate.getTotal_discount_override(), ordertemplate.getTotal_override(),
+				ordertemplate.getCreated(), ordertemplate.getModified(), ordertemplate.getViewed(),
+				ordertemplate.getIssued_override(), ordertemplate.getReferrer(),
+				ordertemplate.getReferrer_display_name(), ordertemplate.getClient_count(),
+				ordertemplate.getProduct_count(), ordertemplate.getOrder_count(), ordertemplate.getPurchase_count(),
+				ordertemplate.getRevenue(), ordertemplate.getLast_purchase_on(),
+				ordertemplate.getMax_payment_attempts(), null);
+		generatedtemplate.setOrderid(orderid);
+		ordertemplaterepository.save(generatedtemplate);
 	}
 
 }
